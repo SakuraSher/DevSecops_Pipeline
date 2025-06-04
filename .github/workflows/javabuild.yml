@@ -33,8 +33,9 @@ jobs:
           with:
             version: latest
           env:
-            JFROG_URL: "https://trial6f8u6n.jfrog.io/"
-            jfrog-cli-options: --interactive=false
+            JF_URL: https://trial6f8u6n.jfrog.io/
+            JF_ACCESS_TOKEN: ${{ secrets.JFROG_TOKEN }}
+
           
         - name: Upload JAR to Jfrog
           run: |
