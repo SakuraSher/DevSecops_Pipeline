@@ -17,9 +17,30 @@ jobs:
           with:
                 java-version: '17'
                 distribution: 'temurin'
+                cache: 'maven'
+        - name: Cache Maven packages
+          uses: actions/cache@v4
+          with:
+            path: ~/.m2/repository
+            key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+
 
         - name: Build with Maven
           run: mvn clean install
 
+        - name: jfrog setup
+          uses: jfrog/setup-jfrog-cli@v3
+          env:
+            JFROG_URL: "https://trial6f8u6n.jfrog.io/"
+            jfrog-cli-options: --interactive=false
+          
+        - name: Upload JAR to Jfrog
+          run: |
+           jf rt u "target/*.jar" "petclinic/" 
         - name: Run tests
           run: mvn test
+        - name: Upload test results
+          uses: actions/upload-artifact@v4
+          with:
+            name: test-results
+            path: target/surefire-reports
