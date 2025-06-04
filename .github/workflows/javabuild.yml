@@ -39,7 +39,7 @@ jobs:
         - name: Upload JAR to Jfrog
           run: |
            ls -l
-           ls -la /target
+           ls -la ./target
            jf rt u "target/*.jar" "petclinic/" 
         - name: Run tests
           run: mvn test
