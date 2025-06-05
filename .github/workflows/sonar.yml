@@ -18,8 +18,7 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v4
      
-        # with:
-        #   sonarCloudToken: ${{ secrets.SONAR_TOKEN }}
+
         #   projectKey: 'SakuraSher_DevSecops_Pipeline'  # Replace with your actual project key
         #   organization: 'sakurasher'  # Replace with your actual organization    
         #   hostUrl: 'https://sonarcloud.io'
