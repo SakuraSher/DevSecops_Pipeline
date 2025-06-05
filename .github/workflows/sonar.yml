@@ -13,18 +13,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: 'maven'
-      - name: Run SonarCloud analysis
-        run: |
-          mvn clean verify sonar:sonar 
-          -Dsonar.projectKey=SakuraSher_DevSecops_Pipeline 
-          -Dsonar.organization=sakurasher 
-          -Dsonar.host.url=https://sonarcloud.io 
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-
-        #   projectKey: 'SakuraSher_DevSecops_Pipeline'  # Replace with your actual project key
-        #   organization: 'sakurasher'  # Replace with your actual organization
-        #   hostUrl: 'https://sonarcloud.io'
-    #   - name: run SonarCloud analysis
-    #     run: mvn clean verify sonar:sonar -Dsonar.projectKey=SakuraSher_DevSecops_Pipeline -Dsonar.organization=sakurasher -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-
-
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@v2
+        with:
+          projectBaseDir: '.'          
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: https://sonarcloud.io/
