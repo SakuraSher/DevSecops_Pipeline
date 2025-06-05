@@ -24,6 +24,7 @@ jobs:
             -Dsonar.projectKey=SakuraSher_DevSecops_Pipeline
             -Dsonar.organization=sakurasher
             -Dsonar.host.url=https://sonarcloud.io/
+            -Dsonar.java.binaries=target/classes
             
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
