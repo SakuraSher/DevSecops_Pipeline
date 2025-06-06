@@ -7,8 +7,13 @@ jobs:
     build:
 
         runs-on: ubuntu-latest
-
+        outputs:
+          steps: ${{ steps.timestamp.outputs }}
         steps:
+        - name: Set Timestamp
+          id: timestamp
+          run: echo "TIMESTAMP=$(date +"%Y%m%d%H%M%S")" >> $GITHUB_ENV
+        
         - name: Checkout code
           uses: actions/checkout@v4
 
@@ -41,7 +46,7 @@ jobs:
           run: |
            ls -l
            ls -la ./target
-           jf rt u "target/*.jar" "petclinic/" 
+           jf rt u "target/*.jar" "petclinic/$TIMESTAMP" 
         - name: Run tests
           run: mvn test
         - name: Upload test results
